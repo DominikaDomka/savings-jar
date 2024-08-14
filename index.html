@@ -30,14 +30,13 @@
             width: 100%;
             height: 100%;
             position: relative;
-            overflow: hidden;
         }
         #jar-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
         #savings-fill {
             position: absolute;
@@ -46,23 +45,23 @@
             right: 0;
             background-color: rgba(76, 175, 80, 0.5);
             transition: height 0.3s ease-in-out;
-            z-index: 1;
-            clip-path: url(#jarClip);
+            z-index: 2;
+        }
+        #total-savings, #goal-display {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
         }
         #total-savings {
-            position: absolute;
             top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 24px;
             font-weight: bold;
             white-space: nowrap;
         }
         #goal-display {
-            position: absolute;
             top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 16px;
             white-space: nowrap;
         }
@@ -108,9 +107,9 @@
             <div id="jar-container">
                 <img id="jar-image" src="jar-image.jpg" alt="Savings Jar">
                 <div id="savings-fill"></div>
+                <div id="total-savings">$0</div>
+                <div id="goal-display">Goal: $0</div>
             </div>
-            <div id="total-savings">$0</div>
-            <div id="goal-display">Goal: $0</div>
         </div>
         <div id="input-container">
             <input type="number" id="savings-input" placeholder="How much did you save today?">
@@ -142,14 +141,6 @@
             <button onclick="setGoal()">Set Goal</button>
         </div>
     </div>
-
-    <svg width="0" height="0" style="position: absolute;">
-        <defs>
-            <clipPath id="jarClip">
-                <path d="M40 60 V210 Q40 240 100 240 Q160 240 160 210 V60 Q160 50 150 50 H50 Q40 50 40 60" />
-            </clipPath>
-        </defs>
-    </svg>
 
     <script>
         let totalSavings = 0;
@@ -184,9 +175,6 @@
 
             const fillHeight = savingsGoal > 0 ? Math.min((totalSavings / savingsGoal) * 100, 100) : 0;
             fillElement.style.height = `${fillHeight}%`;
-            
-            // Update clip-path
-            document.querySelector('#jarClip path').setAttribute('d', `M40 ${240 - fillHeight * 1.8} V210 Q40 240 100 240 Q160 240 160 210 V${240 - fillHeight * 1.8} Q160 ${230 - fillHeight * 1.8} 100 ${230 - fillHeight * 1.8} Q40 ${230 - fillHeight * 1.8} 40 ${240 - fillHeight * 1.8}`);
         }
 
         function addSavings() {
