@@ -132,8 +132,70 @@
     </div>
 
     <script>
-        // The JavaScript remains the same as in the previous version
-        // ... (insert the JavaScript code here)
+        let totalSavings = 0;
+        let currentCurrency = 'USD';
+        let savingsGoal = 0;
+
+        const currencySymbols = {
+            USD: '$', EUR: '€', JPY: '¥', GBP: '£', AUD: 'A$', CAD: 'C$', 
+            CHF: 'Fr', CNY: '¥', SEK: 'kr', NZD: 'NZ$', MXN: '$', SGD: 'S$', 
+            HKD: 'HK$', NOK: 'kr', KRW: '₩', TRY: '₺', INR: '₹', 
+            BRL: 'R$', ZAR: 'R'
+        };
+
+        document.getElementById('currency-select').addEventListener('change', function() {
+            currentCurrency = this.value;
+            updateDisplay();
+        });
+
+        function updateDisplay() {
+            const totalElement = document.getElementById('total-savings');
+            const goalElement = document.getElementById('goal-display');
+            const fillElement = document.getElementById('savings-fill');
+            const symbol = currencySymbols[currentCurrency];
+            
+            if (['USD', 'CAD', 'AUD', 'HKD', 'SGD', 'NZD'].includes(currentCurrency)) {
+                totalElement.textContent = `${symbol}${totalSavings.toFixed(2)}`;
+                goalElement.textContent = `Goal: ${symbol}${savingsGoal.toFixed(2)}`;
+            } else {
+                totalElement.textContent = `${totalSavings.toFixed(2)} ${symbol}`;
+                goalElement.textContent = `Goal: ${savingsGoal.toFixed(2)} ${symbol}`;
+            }
+
+            const fillHeight = savingsGoal > 0 ? Math.min((totalSavings / savingsGoal) * 100, 100) : 0;
+            fillElement.style.height = `${fillHeight}%`;
+        }
+
+        function addSavings() {
+            const input = document.getElementById('savings-input');
+            const amount = parseFloat(input.value);
+            if (!isNaN(amount) && amount > 0) {
+                totalSavings += amount;
+                updateDisplay();
+                input.value = '';
+            } else {
+                alert('Please enter a valid positive number.');
+            }
+        }
+
+        function clearSavings() {
+            totalSavings = 0;
+            updateDisplay();
+        }
+
+        function setGoal() {
+            const newGoal = prompt("Enter your savings goal:");
+            const goalAmount = parseFloat(newGoal);
+            if (!isNaN(goalAmount) && goalAmount > 0) {
+                savingsGoal = goalAmount;
+                updateDisplay();
+            } else {
+                alert('Please enter a valid positive number for your goal.');
+            }
+        }
+
+        // Initialize display
+        updateDisplay();
     </script>
 </body>
 </html>
