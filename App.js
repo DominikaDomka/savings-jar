@@ -51,42 +51,38 @@ function updateDisplay() {
     fillElement.style.height = `${fillHeight}%`;
 }
 
-function addSavings() {
-    const input = document.getElementById('savings-input');
-    const amount = parseFloat(input.value);
-    if (!isNaN(amount) && amount > 0) {
-        totalSavings += amount;
-        updateDisplay();
-        input.value = '';
-        saveData();
-    } else {
-        alert('Please enter a valid positive number.');
-    }
-}
-
-function clearSavings() {
-    totalSavings = 0;
-    updateDisplay();
-    saveData();
-}
-
-function setGoal() {
-    const newGoal = prompt("Enter your savings goal:");
-    const goalAmount = parseFloat(newGoal);
-    if (!isNaN(goalAmount) && goalAmount > 0) {
-        savingsGoal = goalAmount;
-        updateDisplay();
-        saveData();
-    } else {
-        alert('Please enter a valid positive number for your goal.');
-    }
-}
-
 // Initialize when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('add-savings-btn').addEventListener('click', addSavings);
-    document.getElementById('clear-savings-btn').addEventListener('click', clearSavings);
-    document.getElementById('set-goal-btn').addEventListener('click', setGoal);
+    document.getElementById('add-savings-btn').addEventListener('click', function() {
+        const input = document.getElementById('savings-input');
+        const amount = parseFloat(input.value);
+        if (!isNaN(amount) && amount > 0) {
+            totalSavings += amount;
+            updateDisplay();
+            input.value = '';
+            saveData();
+        } else {
+            alert('Please enter a valid positive number.');
+        }
+    });
+
+    document.getElementById('clear-savings-btn').addEventListener('click', function() {
+        totalSavings = 0;
+        updateDisplay();
+        saveData();
+    });
+
+    document.getElementById('set-goal-btn').addEventListener('click', function() {
+        const newGoal = prompt("Enter your savings goal:");
+        const goalAmount = parseFloat(newGoal);
+        if (!isNaN(goalAmount) && goalAmount > 0) {
+            savingsGoal = goalAmount;
+            updateDisplay();
+            saveData();
+        } else {
+            alert('Please enter a valid positive number for your goal.');
+        }
+    });
 
     document.getElementById('currency-select').addEventListener('change', function() {
         currentCurrency = this.value;
