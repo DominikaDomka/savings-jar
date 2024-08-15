@@ -51,7 +51,8 @@ function updateDisplay() {
     fillElement.style.height = `${fillHeight}%`;
 }
 
-function addSavings() {
+// Global functions for button clicks
+window.addSavings = function() {
     const input = document.getElementById('savings-input');
     const amount = parseFloat(input.value);
     if (!isNaN(amount) && amount > 0) {
@@ -64,13 +65,13 @@ function addSavings() {
     }
 }
 
-function clearSavings() {
+window.clearSavings = function() {
     totalSavings = 0;
     updateDisplay();
     saveData();
 }
 
-function setGoal() {
+window.setGoal = function() {
     const newGoal = prompt("Enter your savings goal:");
     const goalAmount = parseFloat(newGoal);
     if (!isNaN(goalAmount) && goalAmount > 0) {
@@ -84,11 +85,6 @@ function setGoal() {
 
 // Initialize when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners for buttons
-    document.getElementById('add-savings-btn').addEventListener('click', addSavings);
-    document.getElementById('clear-savings-btn').addEventListener('click', clearSavings);
-    document.getElementById('set-goal-btn').addEventListener('click', setGoal);
-
     document.getElementById('currency-select').addEventListener('change', function() {
         currentCurrency = this.value;
         updateDisplay();
