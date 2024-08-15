@@ -3,148 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savings Jar Widget</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: transparent;
-        }
-        #widget {
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #jar {
-            width: 200px;
-            height: 250px;
-            position: relative;
-            margin-bottom: 10px;
-        }
-        #jar-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background-image: url('jar-image.jpg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        #savings-fill {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(76, 175, 80, 0.5);
-            transition: height 0.3s ease-in-out;
-            z-index: 1;
-            mask-image: url('jar-mask.jpg');
-            -webkit-mask-image: url('jar-mask.jpg');
-            mask-size: 100% 100%;
-            -webkit-mask-size: 100% 100%;
-            mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
-            mask-position: bottom;
-            -webkit-mask-position: bottom;
-        }
-        #total-savings, #goal-display {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
-        }
-        #total-savings {
-            top: 40%;
-            font-size: 24px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        #goal-display {
-            top: 60%;
-            font-size: 16px;
-            white-space: nowrap;
-        }
-        #input-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin: 5px 0;
-        }
-        input {
-            flex-grow: 1;
-            padding: 5px;
-            margin-right: 10px;
-        }
-        select {
-            width: auto;
-            padding: 5px;
-        }
-        #button-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            margin-top: 5px;
-        }
-        button {
-            padding: 5px 10px;
-            white-space: nowrap;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 3px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Simple Savings Jar Widget</title>
 </head>
 <body>
     <div id="widget">
-        <div id="jar">
-            <div id="jar-container">
-                <div id="savings-fill"></div>
-                <div id="total-savings">$0</div>
-                <div id="goal-display">Goal: $0</div>
-            </div>
-        </div>
-        <div id="input-container">
-            <input type="number" id="savings-input" placeholder="How much did you save today?">
-            <select id="currency-select">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="JPY">JPY</option>
-                <option value="GBP">GBP</option>
-                <option value="AUD">AUD</option>
-                <option value="CAD">CAD</option>
-                <option value="CHF">CHF</option>
-                <option value="CNY">CNY</option>
-                <option value="SEK">SEK</option>
-                <option value="NZD">NZD</option>
-                <option value="MXN">MXN</option>
-                <option value="SGD">SGD</option>
-                <option value="HKD">HKD</option>
-                <option value="NOK">NOK</option>
-                <option value="KRW">KRW</option>
-                <option value="TRY">TRY</option>
-                <option value="INR">INR</option>
-                <option value="BRL">BRL</option>
-                <option value="ZAR">ZAR</option>
-            </select>
-        </div>
-        <div id="button-container">
-            <button id="add-savings-btn">Add</button>
-            <button id="clear-savings-btn">Clear All</button>
-            <button id="set-goal-btn">Set Goal</button>
-        </div>
+        <button id="add-savings-btn">Add</button>
+        <button id="clear-savings-btn">Clear All</button>
+        <button id="set-goal-btn">Set Goal</button>
     </div>
-    <script src="app.js"></script>
+    <script>
+        document.getElementById('add-savings-btn').addEventListener('click', function() {
+            alert('Add button clicked!');
+        });
+        
+        document.getElementById('clear-savings-btn').addEventListener('click', function() {
+            alert('Clear All button clicked!');
+        });
+        
+        document.getElementById('set-goal-btn').addEventListener('click', function() {
+            alert('Set Goal button clicked!');
+        });
+    </script>
 </body>
 </html>
