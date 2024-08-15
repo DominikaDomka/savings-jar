@@ -30,14 +30,20 @@
             width: 100%;
             height: 100%;
             position: relative;
-            overflow: hidden; /* This ensures the fill doesn't exceed the container */
+        }
+        #jar-svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         #jar-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
             position: relative;
-            z-index: 2; /* Increased z-index to appear above the fill */
+            z-index: 1;
         }
         #savings-fill {
             position: absolute;
@@ -46,7 +52,9 @@
             right: 0;
             background-color: rgba(76, 175, 80, 0.5);
             transition: height 0.3s ease-in-out;
-            z-index: 1; /* Decreased z-index to appear below the jar image */
+            z-index: 2;
+            mask: url(#jar-mask);
+            -webkit-mask: url(#jar-mask);
         }
         #total-savings, #goal-display {
             position: absolute;
@@ -106,8 +114,15 @@
     <div id="widget">
         <div id="jar">
             <div id="jar-container">
-                <div id="savings-fill"></div>
+                <svg id="jar-svg" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <mask id="jar-mask" x="0" y="0" width="100%" height="100%">
+                            <path fill="white" d="M40,50 C40,30 160,30 160,50 L180,230 C180,240 20,240 20,230 Z"/>
+                        </mask>
+                    </defs>
+                </svg>
                 <img id="jar-image" src="jar-image.jpg" alt="Savings Jar">
+                <div id="savings-fill"></div>
                 <div id="total-savings">$0</div>
                 <div id="goal-display">Goal: $0</div>
             </div>
@@ -144,7 +159,6 @@
     </div>
 
     <script>
-        // The JavaScript remains unchanged
         let totalSavings = 0;
         let currentCurrency = 'USD';
         let savingsGoal = 0;
