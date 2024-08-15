@@ -30,15 +30,10 @@
             width: 100%;
             height: 100%;
             position: relative;
-        }
-        #jar-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
+            background-image: url('jar-image.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
         #savings-fill {
             position: absolute;
@@ -48,14 +43,7 @@
             background-color: rgba(76, 175, 80, 0.5);
             transition: height 0.3s ease-in-out;
             z-index: 1;
-            mask-image: url('jar-mask.jpg');
-            -webkit-mask-image: url('jar-mask.jpg');
-            mask-size: 100% 100%;
-            -webkit-mask-size: 100% 100%;
-            mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
-            mask-position: center;
-            -webkit-mask-position: center;
+            mix-blend-mode: multiply;
         }
         #total-savings, #goal-display {
             position: absolute;
@@ -116,7 +104,6 @@
         <div id="jar">
             <div id="jar-container">
                 <div id="savings-fill"></div>
-                <img id="jar-image" src="jar-image.jpg" alt="Savings Jar">
                 <div id="total-savings">$0</div>
                 <div id="goal-display">Goal: $0</div>
             </div>
