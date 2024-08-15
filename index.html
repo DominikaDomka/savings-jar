@@ -30,21 +30,15 @@
             width: 100%;
             height: 100%;
             position: relative;
-            mask-image: url('jar-mask.jpg');
-            -webkit-mask-image: url('jar-mask.jpg');
-            mask-size: contain;
-            -webkit-mask-size: contain;
-            mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
-            mask-position: center;
-            -webkit-mask-position: center;
         }
         #jar-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            position: relative;
-            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
         }
         #savings-fill {
             position: absolute;
@@ -53,7 +47,15 @@
             right: 0;
             background-color: rgba(76, 175, 80, 0.5);
             transition: height 0.3s ease-in-out;
-            z-index: 0;
+            z-index: 1;
+            mask-image: url('jar-mask.jpg');
+            -webkit-mask-image: url('jar-mask.jpg');
+            mask-size: 100% 100%;
+            -webkit-mask-size: 100% 100%;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-position: center;
         }
         #total-savings, #goal-display {
             position: absolute;
