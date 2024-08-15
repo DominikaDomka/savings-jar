@@ -43,13 +43,20 @@
             background-color: rgba(76, 175, 80, 0.5);
             transition: height 0.3s ease-in-out;
             z-index: 1;
-            mix-blend-mode: multiply;
+            mask-image: url('jar-mask.jpg');
+            -webkit-mask-image: url('jar-mask.jpg');
+            mask-size: 100% 100%;
+            -webkit-mask-size: 100% 100%;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            mask-position: bottom;
+            -webkit-mask-position: bottom;
         }
         #total-savings, #goal-display {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 3;
+            z-index: 2;
             text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
         }
         #total-savings {
