@@ -14,18 +14,22 @@
             margin: 0;
             background-color: transparent;
         }
+
         #widget {
             width: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         #jar {
             width: 200px;
             height: 250px;
             position: relative;
             margin-bottom: 10px;
+            pointer-events: none; /* Prevent interactions with the jar itself */
         }
+
         #jar-container {
             width: 100%;
             height: 100%;
@@ -36,6 +40,7 @@
             background-position: center;
             z-index: 0;
         }
+
         #savings-fill {
             position: absolute;
             bottom: 0;
@@ -52,40 +57,49 @@
             -webkit-mask-repeat: no-repeat;
             mask-position: bottom;
             -webkit-mask-position: bottom;
+            pointer-events: none; /* Prevent interactions with the fill */
         }
+
         #total-savings, #goal-display {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
             text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
+            pointer-events: none; /* Prevent interactions with the text */
         }
+
         #total-savings {
             top: 40%;
             font-size: 24px;
             font-weight: bold;
             white-space: nowrap;
         }
+
         #goal-display {
             top: 60%;
             font-size: 16px;
             white-space: nowrap;
         }
+
         #input-container {
             display: flex;
             justify-content: space-between;
             width: 100%;
             margin: 5px 0;
         }
+
         input {
             flex-grow: 1;
             padding: 5px;
             margin-right: 10px;
         }
+
         select {
             width: auto;
             padding: 5px;
         }
+
         #button-container {
             display: flex;
             justify-content: center;
@@ -93,6 +107,7 @@
             width: 100%;
             margin-top: 5px;
         }
+
         button {
             padding: 5px 10px;
             white-space: nowrap;
@@ -101,8 +116,9 @@
             color: white;
             border: none;
             border-radius: 3px;
-            z-index: 3;
+            z-index: 3; /* Ensure buttons are always on top */
         }
+
         button:hover {
             background-color: #45a049;
         }
