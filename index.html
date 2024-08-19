@@ -27,7 +27,6 @@
             height: 250px;
             position: relative;
             margin-bottom: 10px;
-            pointer-events: none; /* Prevent interactions with the jar itself */
         }
 
         #jar-container {
@@ -38,7 +37,6 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            z-index: 0;
         }
 
         #savings-fill {
@@ -48,7 +46,6 @@
             right: 0;
             background-color: rgba(76, 175, 80, 0.5);
             transition: height 0.3s ease-in-out;
-            z-index: 1;
             mask-image: url('jar-mask.jpg');
             -webkit-mask-image: url('jar-mask.jpg');
             mask-size: 100% 100%;
@@ -57,7 +54,6 @@
             -webkit-mask-repeat: no-repeat;
             mask-position: bottom;
             -webkit-mask-position: bottom;
-            pointer-events: none; /* Prevent interactions with the fill */
         }
 
         #total-savings, #goal-display {
@@ -66,7 +62,6 @@
             transform: translateX(-50%);
             z-index: 2;
             text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
-            pointer-events: none; /* Prevent interactions with the text */
         }
 
         #total-savings {
@@ -116,7 +111,6 @@
             color: white;
             border: none;
             border-radius: 3px;
-            z-index: 3; /* Ensure buttons are always on top */
         }
 
         button:hover {
