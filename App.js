@@ -1,7 +1,7 @@
 // Global variables
 let totalSavings = 0;
-let currentCurrency = 'USD';
 let savingsGoal = 0;
+let currentCurrency = 'USD';
 
 const currencySymbols = {
     USD: '$', EUR: '€', JPY: '¥', GBP: '£', AUD: 'A$', CAD: 'C$', 
@@ -16,8 +16,8 @@ function loadSavedData() {
     if (savedData) {
         const data = JSON.parse(savedData);
         totalSavings = data.totalSavings;
-        currentCurrency = data.currentCurrency;
         savingsGoal = data.savingsGoal;
+        currentCurrency = data.currentCurrency;
         document.getElementById('currency-select').value = currentCurrency;
         updateDisplay();
     }
@@ -27,12 +27,13 @@ function loadSavedData() {
 function saveData() {
     const data = {
         totalSavings,
-        currentCurrency,
-        savingsGoal
+        savingsGoal,
+        currentCurrency
     };
     localStorage.setItem('savingsJarData', JSON.stringify(data));
 }
 
+// Update the display with the current savings and goal
 function updateDisplay() {
     const totalElement = document.getElementById('total-savings');
     const goalElement = document.getElementById('goal-display');
@@ -53,14 +54,16 @@ function updateDisplay() {
 
 // Initialize when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    loadSavedData();
+
     document.getElementById('add-savings-btn').addEventListener('click', function() {
         const input = document.getElementById('savings-input');
         const amount = parseFloat(input.value);
         if (!isNaN(amount) && amount > 0) {
             totalSavings += amount;
             updateDisplay();
-            input.value = '';
             saveData();
+            input.value = '';
         } else {
             alert('Please enter a valid positive number.');
         }
@@ -89,8 +92,4 @@ document.addEventListener('DOMContentLoaded', function() {
         updateDisplay();
         saveData();
     });
-
-    // Initialize display
-    loadSavedData();
-    updateDisplay();
 });
