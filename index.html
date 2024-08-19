@@ -48,19 +48,25 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 0;
-            background-color: rgba(76, 175, 80, 0.5); /* Green fill */
+            height: 0; /* Initially empty */
+            background-color: rgba(76, 175, 80, 0.5); /* Green fill with 50% opacity */
             transition: height 0.3s ease-in-out;
-            mask-image: url('jar-mask.jpg');
-            -webkit-mask-image: url('jar-mask.jpg');
-            mask-size: 100% 100%;
-            -webkit-mask-size: 100% 100%;
-            mask-repeat: no-repeat;
+            
+            /* Masking to keep the fill inside the jar shape */
+            mask-image: url('jar-mask.jpg'); /* The mask image */
+            -webkit-mask-image: url('jar-mask.jpg'); /* For WebKit browsers */
+            
+            mask-size: 100% 100%; /* Ensure the mask fully covers the container */
+            -webkit-mask-size: 100% 100%; /* Ensure the mask is scaled correctly */
+            
+            mask-repeat: no-repeat; /* Do not repeat the mask */
             -webkit-mask-repeat: no-repeat;
-            mask-position: bottom;
+            
+            mask-position: bottom; /* Align the mask to the bottom */
             -webkit-mask-position: bottom;
-            pointer-events: none; /* Prevent the fill from blocking clicks */
-            z-index: 1;
+            
+            pointer-events: none; /* Prevent the fill from blocking interactions */
+            z-index: 1; /* Ensure it's below text and buttons */
         }
 
         #total-savings, #goal-display {
