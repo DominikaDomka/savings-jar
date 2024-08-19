@@ -37,6 +37,7 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+            z-index: 1; /* Ensure this is below the buttons */
         }
 
         #savings-fill {
@@ -44,7 +45,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: rgba(76, 175, 80, 0.5);
+            background-color: rgba(76, 175, 80, 0.5); /* Green fill */
             transition: height 0.3s ease-in-out;
             mask-image: url('jar-mask.jpg');
             -webkit-mask-image: url('jar-mask.jpg');
@@ -54,13 +55,16 @@
             -webkit-mask-repeat: no-repeat;
             mask-position: bottom;
             -webkit-mask-position: bottom;
+            pointer-events: none; /* Prevent the fill from blocking clicks */
+            z-index: 1; /* Keep this below the buttons */
         }
 
         #total-savings, #goal-display {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 2;
+            z-index: 2; /* Ensure text is above the jar and fill */
+            pointer-events: none; /* Prevent the text from blocking clicks */
             text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;
         }
 
@@ -101,6 +105,7 @@
             gap: 10px;
             width: 100%;
             margin-top: 5px;
+            z-index: 3; /* Ensure buttons are on top */
         }
 
         button {
@@ -111,6 +116,8 @@
             color: white;
             border: none;
             border-radius: 3px;
+            position: relative; /* Ensure correct stacking order */
+            z-index: 3; /* Ensure buttons are on top */
         }
 
         button:hover {
