@@ -85,7 +85,7 @@
         }
 
         button {
-            background-color: #4CAF50;  /* Green color */
+            background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
@@ -93,7 +93,7 @@
         }
 
         button:hover {
-            background-color: #45a049;  /* Slightly darker green on hover */
+            background-color: #45a049;
         }
 
         #button-container {
@@ -104,6 +104,42 @@
         #button-container button {
             flex: 1;
             margin: 0 5px;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        #modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 5px;
+        }
+
+        #close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #close-modal:hover,
+        #close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -131,6 +167,16 @@
             <button id="set-goal-btn">Set Goal</button>
         </div>
     </div>
+
+    <div id="modal">
+        <div id="modal-content">
+            <span id="close-modal">&times;</span>
+            <h2>Set Savings Goal</h2>
+            <input type="number" id="goal-input" placeholder="Enter your savings goal">
+            <button id="confirm-goal-btn">Set Goal</button>
+        </div>
+    </div>
+
     <script>
         let totalSavings = 0;
         let savingsGoal = 0;
@@ -173,6 +219,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
 
+            const modal = document.getElementById('modal');
+            const closeModal = document.getElementById('close-modal');
+            const setGoalBtn = document.getElementById('set-goal-btn');
+            const confirmGoalBtn = document.getElementById('confirm-goal-btn');
+
             document.getElementById('add-savings-btn').addEventListener('click', function() {
                 const input = document.getElementById('savings-input');
                 const amount = parseFloat(input.value);
@@ -192,13 +243,23 @@
                 saveData();
             });
 
-            document.getElementById('set-goal-btn').addEventListener('click', function() {
-                const newGoal = prompt("Enter your savings goal:");
-                const goalAmount = parseFloat(newGoal);
-                if (!isNaN(goalAmount) && goalAmount > 0) {
-                    savingsGoal = goalAmount;
+            setGoalBtn.addEventListener('click', function() {
+                modal.style.display = "block";
+            });
+
+            closeModal.addEventListener('click', function() {
+                modal.style.display = "none";
+            });
+
+            confirmGoalBtn.addEventListener('click', function() {
+                const goalInput = document.getElementById('goal-input');
+                const newGoal = parseFloat(goalInput.value);
+                if (!isNaN(newGoal) && newGoal > 0) {
+                    savingsGoal = newGoal;
                     updateDisplay();
                     saveData();
+                    modal.style.display = "none";
+                    goalInput.value = '';
                 } else {
                     alert('Please enter a valid positive number for your goal.');
                 }
@@ -208,6 +269,12 @@
                 currentCurrency = this.value;
                 updateDisplay();
                 saveData();
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
             });
         });
     </script>
