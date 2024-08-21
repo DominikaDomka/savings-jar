@@ -187,20 +187,24 @@
         };
 
         function loadData() {
-            const hash = window.location.hash.substr(1);
-            if (hash) {
-                const [savings, goal, currency] = hash.split(',');
-                totalSavings = parseFloat(savings) || 0;
-                savingsGoal = parseFloat(goal) || 0;
-                currentCurrency = currency || 'USD';
+            const savedData = localStorage.getItem('savingsWidgetData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                totalSavings = data.totalSavings;
+                savingsGoal = data.savingsGoal;
+                currentCurrency = data.currentCurrency;
                 document.getElementById('currency-select').value = currentCurrency;
             }
             updateDisplay();
         }
 
         function saveData() {
-            const hash = `${totalSavings},${savingsGoal},${currentCurrency}`;
-            window.location.hash = hash;
+            const data = {
+                totalSavings,
+                savingsGoal,
+                currentCurrency
+            };
+            localStorage.setItem('savingsWidgetData', JSON.stringify(data));
         }
 
         function updateDisplay() {
