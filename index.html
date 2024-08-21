@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savings Circle Widget</title>
+    <title>Savings Dot Widget</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,30 +22,29 @@
             align-items: center;
         }
 
-        #circle-container {
+        #dot-container {
             position: relative;
             width: 200px;
             height: 200px;
             margin-bottom: 20px;
         }
 
-        svg {
-            transform: rotate(-90deg);
+        #savings-dot {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #e6e6e6;
+            overflow: hidden;
+            position: relative;
         }
 
-        .circle-bg {
-            fill: none;
-            stroke: #e6e6e6;
-            stroke-width: 20;
-        }
-
-        .circle-progress {
-            fill: none;
-            stroke: #4CAF50;
-            stroke-width: 20;
-            stroke-linecap: round;
-            stroke-dasharray: 0 100;
-            transition: stroke-dasharray 0.3s ease;
+        #dot-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #4CAF50;
+            transition: height 0.3s ease;
         }
 
         #total-savings, #goal-display {
@@ -54,7 +53,7 @@
             top: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            pointer-events: none; /* Prevent the text from blocking clicks */
+            pointer-events: none;
         }
 
         #total-savings {
@@ -64,7 +63,7 @@
 
         #goal-display {
             font-size: 16px;
-            margin-top: 10px;
+            margin-top: 30px;
         }
 
         #input-container {
@@ -110,11 +109,10 @@
 </head>
 <body>
     <div id="widget">
-        <div id="circle-container">
-            <svg width="200" height="200" viewBox="0 0 200 200">
-                <circle class="circle-bg" cx="100" cy="100" r="80"></circle>
-                <circle id="circle-progress" class="circle-progress" cx="100" cy="100" r="80"></circle>
-            </svg>
+        <div id="dot-container">
+            <div id="savings-dot">
+                <div id="dot-fill"></div>
+            </div>
             <div id="total-savings">$0</div>
             <div id="goal-display">Goal: $0</div>
         </div>
@@ -161,34 +159,30 @@
             BRL: 'R$', ZAR: 'R'
         };
 
-        // Load saved data from localStorage
-        function loadSavedData() {
-            const savedData = localStorage.getItem('savingsJarData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                totalSavings = data.totalSavings;
-                savingsGoal = data.savingsGoal;
-                currentCurrency = data.currentCurrency;
+        // Load data from URL hash
+        function loadData() {
+            const hash = window.location.hash.substr(1);
+            if (hash) {
+                const [savings, goal, currency] = hash.split(',');
+                totalSavings = parseFloat(savings) || 0;
+                savingsGoal = parseFloat(goal) || 0;
+                currentCurrency = currency || 'USD';
                 document.getElementById('currency-select').value = currentCurrency;
-                updateDisplay();
             }
+            updateDisplay();
         }
 
-        // Save data to localStorage
+        // Save data to URL hash
         function saveData() {
-            const data = {
-                totalSavings,
-                savingsGoal,
-                currentCurrency
-            };
-            localStorage.setItem('savingsJarData', JSON.stringify(data));
+            const hash = `${totalSavings},${savingsGoal},${currentCurrency}`;
+            window.location.hash = hash;
         }
 
         // Update the display with the current savings and goal
         function updateDisplay() {
             const totalElement = document.getElementById('total-savings');
             const goalElement = document.getElementById('goal-display');
-            const fillElement = document.getElementById('circle-progress');
+            const fillElement = document.getElementById('dot-fill');
             const symbol = currencySymbols[currentCurrency];
             
             if (['USD', 'CAD', 'AUD', 'HKD', 'SGD', 'NZD'].includes(currentCurrency)) {
@@ -200,13 +194,12 @@
             }
 
             const progress = savingsGoal > 0 ? Math.min((totalSavings / savingsGoal) * 100, 100) : 0;
-            const circumference = 2 * Math.PI * 80;
-            fillElement.style.strokeDasharray = `${(progress / 100) * circumference} ${circumference}`;
+            fillElement.style.height = `${progress}%`;
         }
 
         // Initialize when the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            loadSavedData();
+            loadData();
 
             document.getElementById('add-savings-btn').addEventListener('click', function() {
                 const input = document.getElementById('savings-input');
